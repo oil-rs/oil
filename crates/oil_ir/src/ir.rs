@@ -98,10 +98,7 @@ pub enum IrStatement {
     },
     Return {
         location: Address,
-        value: IrExpression,
-    },
-    ReturnVoid {
-        location: Address,
+        value: Option<IrExpression>,
     },
     Match {
         location: Address,

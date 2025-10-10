@@ -176,9 +176,13 @@ pub fn gen_statement(stmt: IrStatement) -> js::Tokens {
         // Continue statement
         IrStatement::Continue { .. } => quote!(continue;),
         // Return statement
-        IrStatement::Return { value, .. } => quote!(return $(gen_expression(value));),
-        // Void Return statement
-        IrStatement::ReturnVoid { .. } => quote!(return ();),
+        IrStatement::Return { value, .. } => {
+            if let Some(value) = value {
+                quote!(return $(gen_expression(value));)
+            } else {
+                quote!(return ();)
+            }
+        },
         // Match statement
         IrStatement::Match {
             location: _,

@@ -261,8 +261,7 @@ impl<'pkg> ModuleAnalyzer<'pkg> {
                 }
                 None
             }
-            IrStatement::Return { value, .. } => Some(self.infer_expr(value)),
-            IrStatement::ReturnVoid { .. } => None,
+            IrStatement::Return { value, .. } => if let Some(value) = value { Some(self.infer_expr(value)) } else { None },
             IrStatement::For { .. } => todo!(),
             IrStatement::Match {
                 location,
