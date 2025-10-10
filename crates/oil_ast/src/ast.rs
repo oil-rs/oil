@@ -189,7 +189,7 @@ pub enum Node {
     },
     Return {
         location: Address,
-        value: Box<Node>,
+        value: Option<Box<Node>>,
     },
     TypeDeclaration {
         location: Address,

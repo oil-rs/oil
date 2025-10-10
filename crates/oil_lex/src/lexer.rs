@@ -14,7 +14,7 @@ pub struct Lexer<'source, 'cursor> {
     cursor: Cursor<'cursor>,
     named_source: &'source NamedSource<Arc<String>>,
     tokens: Vec<Token>,
-    keywords: HashMap<&'static str, TokenKind>,
+    keywords: HashMap<&'static str, (TokenKind, Option<(char, TokenKind)>)>,
 }
 
 /// Lexer implementation
@@ -27,26 +27,26 @@ impl<'source, 'cursor> Lexer<'source, 'cursor> {
     pub fn new(code: &'cursor [char], named_source: &'source NamedSource<Arc<String>>) -> Self {
         // Keywords list
         let keywords_map = HashMap::from([
-            ("fn", TokenKind::Fn),
-            ("break", TokenKind::Break),
-            ("if", TokenKind::If),
-            ("elif", TokenKind::Elif),
-            ("else", TokenKind::Else),
-            ("type", TokenKind::Type),
-            ("enum", TokenKind::Enum),
-            ("while", TokenKind::While),
-            ("for", TokenKind::For),
-            ("in", TokenKind::In),
-            ("continue", TokenKind::Continue),
-            ("true", TokenKind::Bool),
-            ("false", TokenKind::Bool),
-            ("return", TokenKind::Ret),
-            ("as", TokenKind::As),
-            ("let", TokenKind::Let),
-            ("use", TokenKind::Use),
-            ("pub", TokenKind::Pub),
-            ("match", TokenKind::Match),
-            ("extern", TokenKind::Extern),
+            ("fn",          (TokenKind::Fn,         None)),
+            ("break",       (TokenKind::Break,      None)),
+            ("if",          (TokenKind::If,         None)),
+            ("elif",        (TokenKind::Elif,       None)),
+            ("else",        (TokenKind::Else,       None)),
+            ("type",        (TokenKind::Type,       None)),
+            ("enum",        (TokenKind::Enum,       None)),
+            ("while",       (TokenKind::While,      None)),
+            ("for",         (TokenKind::For,        None)),
+            ("in",          (TokenKind::In,         None)),
+            ("continue",    (TokenKind::Continue,   None)),
+            ("true",        (TokenKind::Bool,       None)),
+            ("false",       (TokenKind::Bool,       None)),
+            ("return",      (TokenKind::Ret,        Some(('\n', TokenKind::RetVoid)))),
+            ("as",          (TokenKind::As,         None)),
+            ("let",         (TokenKind::Let,        None)),
+            ("use",         (TokenKind::Use,        None)),
+            ("pub",         (TokenKind::Pub,        None)),
+            ("match",       (TokenKind::Match,      None)),
+            ("extern",      (TokenKind::Extern,     None)),
         ]);
         // Lexer
         Lexer {
@@ -451,16 +451,30 @@ impl<'source, 'cursor> Lexer<'source, 'cursor> {
             }
         }
 
-        let tk_type: TokenKind = self
+        let tk_type_and_check: (TokenKind, Option<(char, TokenKind)>) = self
             .keywords
             .get(text.as_str())
             .cloned()
-            .unwrap_or(TokenKind::Id);
+            .unwrap_or((TokenKind::Id, None));
+        let tk_type = tk_type_and_check.0;
+        let tk_result_type =
+            if let Some(check) = tk_type_and_check.1 {
+                let symbol = check.0;
+                let mut result = tk_type;
+                while self.cursor.char_at(0) == '\n' || self.cursor.char_at(0) == '\r' || self.cursor.char_at(0) == ' ' {
+                    if symbol == self.cursor.char_at(0) {
+                        result = check.1;
+                        break;
+                    }
+                    self.cursor.next();
+                }
+                result
+            } else { tk_type };
 
         let span_end = self.cursor.current;
 
         Token {
-            tk_type,
+            tk_type: tk_result_type,
             value: text,
             address: Address::span(span_start..span_end),
         }

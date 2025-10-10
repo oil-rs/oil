@@ -490,10 +490,15 @@ pub fn node_to_ir_statement(source: &NamedSource<Arc<String>>, node: Node) -> Ir
         },
         Node::Break { location } => IrStatement::Break { location: location },
         Node::Continue { location } => IrStatement::Continue { location: location },
-        Node::Return { location, value } => IrStatement::Return {
-            location: location,
-            value: node_to_ir_expression(source, *value),
-        },
+        Node::Return { location, value } =>
+            if let Some(value) = value {
+                IrStatement::Return {
+                    location: location,
+                    value: node_to_ir_expression(source, *value),
+                }
+            } else {
+                IrStatement::ReturnVoid { location: location }
+            },
         Node::For {
             iterable,
             variable,

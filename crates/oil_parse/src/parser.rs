@@ -592,7 +592,13 @@ impl<'file_path> Parser<'file_path> {
     fn return_stmt(&mut self) -> Node {
         let location = self.consume(TokenKind::Ret).address.clone();
         let value = Box::new(self.expr());
-        Node::Return { location, value }
+        Node::Return { location, value: Some(value) }
+    }
+
+    /// Void Return statement parsing
+    fn void_return_stmt(&mut self) -> Node {
+        let location = self.consume(TokenKind::Ret).address.clone();
+        Node::Return { location, value: None }
     }
 
     /// Use declaration `use ...` | `use (..., ..., n)` parsing
@@ -1092,6 +1098,7 @@ impl<'file_path> Parser<'file_path> {
             TokenKind::Continue => self.continue_stmt(),
             TokenKind::Break => self.break_stmt(),
             TokenKind::Ret => self.return_stmt(),
+            TokenKind::RetVoid => self.void_return_stmt(),
             TokenKind::For => self.for_stmt(),
             TokenKind::While => self.while_stmt(),
             TokenKind::Let => self.let_declaration(Publicity::None),
