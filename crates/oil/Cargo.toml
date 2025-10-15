@@ -14,3 +14,4 @@ log = "0.4.27"
 pretty_env_logger = "0.4"
 ecow = "0.2.6"
 oil_pm = { path = "../oil_pm" }
+mir = { path = "../mir" }

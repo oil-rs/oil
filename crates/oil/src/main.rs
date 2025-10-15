@@ -5,6 +5,7 @@ pub(crate) mod errors;
 /// Imports
 use crate::commands::{init, run};
 use clap::{Parser, Subcommand};
+use mir::build_test_module;
 
 /*
  * Cli
@@ -64,7 +65,9 @@ pub fn cli() {
 /// Main function
 fn main() {
     // Initializing logging
-    pretty_env_logger::init();
+   // pretty_env_logger::init();
     // Cli
-    cli();
+    //cli();
+
+    build_test_module();
 }
