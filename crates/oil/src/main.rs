@@ -6,6 +6,7 @@ pub(crate) mod errors;
 use crate::commands::{init, run};
 use clap::{Parser, Subcommand};
 use mir::build_test_module;
+use oil_cranelift_codegen::compile_to_native;
 
 /*
  * Cli
@@ -69,5 +70,8 @@ fn main() {
     // Cli
     //cli();
 
-    build_test_module();
+    let module = build_test_module();
+    println!("{}", module);
+
+    compile_to_native(module, "./test").unwrap();
 }

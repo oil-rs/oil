@@ -7,7 +7,7 @@ use oil_common::{address::Address, rc_ptr::RcPtr};
 use std::{cell::RefCell, collections::HashMap, fmt::Debug, sync::Arc};
 
 /// Prelude type
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum PreludeType {
     Int,
     Float,
@@ -124,7 +124,7 @@ impl Debug for Module {
 }
 
 /// Typ
-#[derive(Clone)]
+#[derive(Clone, Eq)]
 pub enum Typ {
     Prelude(PreludeType),
     Custom(RcPtr<RefCell<Type>>),

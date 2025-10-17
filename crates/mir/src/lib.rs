@@ -1,5 +1,5 @@
 use core::fmt;
-use std::collections::HashMap;
+use std::{collections::HashMap, fmt::write};
 
 use oil_typeck::typ::{Typ};
 
@@ -35,6 +35,11 @@ impl Context {
 
     pub fn block<'a>(&'a self, func: &'a Function, id: BlockId) -> &'a BasicBlock {
         func.blocks.block(id)
+    }
+
+    pub fn create_constant(&mut self, constant: Constant, ty: Typ) -> Value {
+        let id = self.fresh_value_id();
+        Value { id, ty, kind: ValueKind::Const(constant) }
     }
 }
 
@@ -73,6 +78,7 @@ pub enum ValueKind {
     Instruction(Box<InstructionKind>),
     Const(Constant),
     Argument { func: String, index: usize },
+    Pointer,
 }
 
 impl Value {
@@ -292,24 +298,12 @@ impl<'ctx, 'a> Builder<'ctx, 'a> {
     }
 }
 
-pub fn c_f64(v: f64) -> Value {
-    Value { id: ValueId(usize::MIN), ty: Typ::Prelude(oil_typeck::typ::PreludeType::Float), kind: ValueKind::Const(Constant::Float64(v)) }
+pub fn c_i32(ctx: &mut Context, v: i32) -> Value {
+    ctx.create_constant(Constant::Int32(v), Typ::Prelude(oil_typeck::typ::PreludeType::Int))
 }
 
-pub fn c_f32(v: f32) -> Value {
-    Value { id: ValueId(usize::MIN), ty: Typ::Prelude(oil_typeck::typ::PreludeType::Float), kind: ValueKind::Const(Constant::Float32(v)) }
-}
-
-pub fn c_i32(v: i32) -> Value {
-    Value { id: ValueId(usize::MIN), ty: Typ::Prelude(oil_typeck::typ::PreludeType::Int), kind: ValueKind::Const(Constant::Int32(v)) }
-}
-
-pub fn c_i64(v: i64) -> Value {
-    Value { id: ValueId(usize::MIN), ty: Typ::Prelude(oil_typeck::typ::PreludeType::Int), kind: ValueKind::Const(Constant::Int64(v)) }
-}
-
-pub fn c_bool(v: bool) -> Value {
-    Value { id: ValueId(usize::MIN), ty: Typ::Prelude(oil_typeck::typ::PreludeType::Bool), kind: ValueKind::Const(Constant::Bool(v)) }
+pub fn c_i64(ctx: &mut Context, v: i64) -> Value {
+    ctx.create_constant(Constant::Int64(v), Typ::Prelude(oil_typeck::typ::PreludeType::Int))
 }
 
 impl fmt::Display for Constant {
@@ -344,6 +338,7 @@ impl fmt::Display for ValueKind {
             ValueKind::Instruction(inst) => write!(f, "{}", inst),
             ValueKind::Const(c) => write!(f, "{}", c),
             ValueKind::Argument { func, index } => write!(f, "arg{}@{}", index, func),
+            ValueKind::Pointer => write!(f, "*")
         }
     }
 }
@@ -401,14 +396,12 @@ impl fmt::Display for Value {
 
 impl fmt::Display for BasicBlock {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        // Заголовок блока
         if let Some(name) = &self.name {
             write!(f, "{} ({})", self.id, name)?;
         } else {
             write!(f, "{}", self.id)?;
         }
         
-        // Предшественники и последователи
         if !self.predecessors.is_empty() {
             write!(f, " [pred: ")?;
             for (i, pred) in self.predecessors.iter().enumerate() {
@@ -483,8 +476,12 @@ impl fmt::Display for Module {
     }
 }
 
-pub fn build_test_module() {
+pub fn build_test_module() -> Module {
     let mut ctx = Context::new();
+
+    let const_40 = c_i32(&mut ctx, 40);  
+    let const_2 = c_i32(&mut ctx, 2);
+
     let mut builder = ctx.create_builder();
     let mut module = Module::new();
 
@@ -495,15 +492,15 @@ pub fn build_test_module() {
     let entry = f.blocks.add_block();
     f.blocks.start_id = entry;
 
-    {
-        let block = f.blocks.block_mut(entry);
-        builder.position_at_end(block);
+    let block = f.blocks.block_mut(entry);
+    builder.position_at_end(block);
 
-        let x = builder.mul(c_i32(40), c_i32(2));
-        builder.ret(Some(x));
-    }
+    
+    let x = builder.mul(const_40, const_2);
+
+    builder.ret(Some(x));
 
     module.add_function(f);
 
-    println!("{}", module);
+    module
 }

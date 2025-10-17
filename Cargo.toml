@@ -9,6 +9,6 @@ members = [
     "crates/oil_gen",
     "crates/oil_compile",
     "crates/oil_pm",
-    "crates/oil_typeck", "crates/oil_cfa",
+    "crates/oil_typeck", "crates/oil_cfa", "crates/mir", "crates/oil_cranelift_codegen",
 ]
 resolver = "3"

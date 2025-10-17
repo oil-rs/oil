@@ -1,0 +1,13 @@
+[package]
+name = "oil_cranelift_codegen"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+mir = {path = "../mir"}
+cranelift-frontend = "0.124.2"
+oil_typeck = { path = "../oil_typeck" }
+cranelift-module = "0.124.2"
+cranelift-object = "0.124.2"
+cranelift = "0.124.2"
+cranelift-native = "0.124.2"
