@@ -5,7 +5,7 @@
 - Manual memory management
 - Modern features and syntax
 - As simple as C
-- No hidden behavior
+- No hidden behaviour
 
 ### Example
 ```hawk
