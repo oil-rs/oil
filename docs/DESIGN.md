@@ -131,6 +131,13 @@ c := [..a, ..b, true, false]
 # [1, 2, 3, "hello", "my", "friend", true, false] 
 ```
 
+To access array element you can use `[_]` (index) operator:
+
+```
+a := [1, 2, 3]
+b := a[1] # 2
+```
+
 ### Dictionaries
 Dictionary represents a sequence of key-value pairs:
 
@@ -153,6 +160,18 @@ b := {
     "currency": "uzs"
     "discount": 3000
 }
+```
+
+To access dictionary element you can use `[_]` (index) operator:
+
+```
+vegetables := {
+    "tomato": 5, 
+    "cucumber": 3,
+    "onion": 4, 
+    "garlic": 1
+}
+garlic_amount := vegetables["garlic"]
 ```
 
 ### Ranges
