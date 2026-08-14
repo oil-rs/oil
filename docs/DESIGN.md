@@ -16,7 +16,6 @@ Hawk is a friendly, expression-based, immutable functional programming language 
 * Complex features
 * Hidden behaviour
 * Mutability with side-effects
-64-bit floating point number
 
 ### Notes
 * Almost everything is an expression
@@ -25,7 +24,7 @@ Hawk is a friendly, expression-based, immutable functional programming language 
 ### Reserved words
 The best way to get a quick feel of a language's style is to look what keywords it uses:
 ```
-if else true false memoize echo
+if else true false memoize echo match
 ```
 
 ### Comments
@@ -266,11 +265,11 @@ Here is some examples:
 
 Literal patterns:
 ```
-fibonacci := |n| match n {
+fib := |n| match n {
   0 -> 0
   1 -> 1
-  n -> fibonacci(n - 1) + fibonacci(n - 2)
-};
+  n -> fib(n - 1) + fib(n - 2)
+}
 ```
 
 List patterns:
