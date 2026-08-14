@@ -1,17 +1,23 @@
 ### 🦅 Hawk
-... is a low-level systems programming language for building fast and efficient software
+Hawk is a friendly, expression-based, immutable functional programming language designed for demonstrating, implementing, and experimenting with algorithms.
 
 ### Philosophy
-- Manual memory management
-- Modern features and syntax
-- As simple as C
-- No hidden behaviour
+* Simplicity
+* No side effects
+* No hidden behavior
 
 ### Example
-```hawk
-import "std/io.hw"
 
-fn main() {
-  _io_println("Hello, world!")
+```hawk
+io := use("io")
+
+fib := |n| {
+  if n <= 1 {
+    n
+  } else {
+    fib(n - 1) + fib(n - 2)
+  }
 }
+
+fib(30) |> io:println(_)
 ```
