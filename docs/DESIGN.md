@@ -24,7 +24,7 @@ Hawk is a friendly, expression-based, immutable functional programming language 
 ### Reserved words
 The best way to get a quick feel of a language's style is to look what keywords it uses:
 ```
-if else true false memoize echo match
+if else true false nil memoize echo match
 ```
 
 ### Comments
