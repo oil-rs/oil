@@ -89,7 +89,7 @@ Nil represents a nothing value. Means here is no specified value:
 
 ```
 a := nil
-io:println(a == nil) # true
+echo a == nil # true
 ```
 
 ### Variables
@@ -111,6 +111,14 @@ Following unary operations:
 Following postfix operations:
 * : for module field access
 * [_] for index or key access
+
+### Echoes
+To print some debug information you can use `echo` keyword:
+
+```
+echo 1 + 2 # 3
+echo 2 * 2 # 4
+```
 
 ### Arrays
 Array represents a sequence of values:
@@ -177,7 +185,13 @@ vegetables := {
     "onion": 4, 
     "garlic": 1
 }
-garlic_amount := vegetables["garlic"]
+echo vegetables["garlic"] # 1
+```
+
+You can also access dictionary element where key is string using dot notation (via `.`):
+
+```
+echo vegetables.cucumber # 3
 ```
 
 ### Ranges
@@ -187,16 +201,8 @@ To create an array of numbers in some range, you can use range expression:
 a := 0..5
 b := 0..=5
 
-io:println(a) # [0, 1, 2, 3, 4]
-io:println(a) # [0, 1, 2, 3, 4, 5]
-```
-
-### Echoes
-To print some debug information you can use `echo` keyword:
-
-```
-echo 1 + 2 # 3
-echo 2 * 2 # 4
+io.println(a) # [0, 1, 2, 3, 4]
+io.println(a) # [0, 1, 2, 3, 4, 5]
 ```
 
 ### Functions
@@ -233,7 +239,7 @@ echo y() # 20
 If you want to evaluate some code depending on condition, you can use `if`, `else if` and `else` expressions:
 
 ```
-number := int:parse(io:readln())
+number := int.parse(io.readln())
 sign := if a < 0 {
     -1
 } else if a > 0 {
@@ -244,7 +250,7 @@ sign := if a < 0 {
 ```
 
 ```
-number := int:parse(io:readln())
+number := int.parse(io.readln())
 is_even := if number % 2 = 0 {
     true
 } else {
@@ -340,12 +346,12 @@ factorial := |n| match n {
 ```
 
 ### Modularity
-Every Hawk file is a module. You can use one module from other one using `use` function and `:` operator:
+Every Hawk file is a module. You can use one module from other one using `use` function and `.` operator:
 
 ```
 io := use("io")
 
-io:println("Hello, world!")
+io.println("Hello, world!")
 ```
 
 ### Pipelines
@@ -357,7 +363,7 @@ io := use("io")
 double := |n| n * 2
 square := |n| n * n
 
-io:println(square(double(10)))
+io.println(square(double(10)))
 ```
 
 With pipeline:
@@ -385,7 +391,7 @@ fib := memoize |n| {
     }
 }
 
-fib(35) |> io:println(_)
+fib(35) |> io.println(_)
 ```
 
 ### Standard library
