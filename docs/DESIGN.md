@@ -224,8 +224,9 @@ All functions which are declared are closures, and have access to their outer sc
 x := |x| {
     || x * 2
 }
-y := x()
-echo y()
+y := x(5)
+echo y() # 10
+echo y() # 20
 ```
 
 ### Control Flow: If
