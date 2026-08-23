@@ -101,16 +101,16 @@ a := "world" # not a mutation, variable shadowing.
 
 ### Operators
 Hawk supports following binary operations:
-* == != > < >= <=
-* && || & | << >>
-* + - * / %
+* `==` `!=` `>` `<` `>=` `<=`
+* `&&` `||` `&` `|` `<<` `>>`
+* `+` `-` `*` `/` `%`
 
 Following unary operations:
-* ! -
+* `!` `-`
 
 Following postfix operations:
-* . for module field or dictionary element access
-* [_] for array or dictionary element access
+* `.` for module field or dictionary element access
+* `[_]` for array or dictionary element access
 
 ### Arrays
 Array represents a sequence of values:
