@@ -1,9 +1,9 @@
-### 🦅 Hawk
-Hawk is a friendly, expression-based, immutable functional programming language designed for demonstrating, implementing, and experimenting with algorithms.
+### ⛽ Oil
+Oil is a friendly, expression-based, immutable functional programming language for building scalable software.
 
 ### Philosophy
 * Simplicity
-* No side-effects
+* Immutability
 * No hidden behavior
 
 ### Goals
@@ -100,9 +100,9 @@ a := "world" # not a mutation, variable shadowing.
 ```
 
 ### Operators
-Hawk supports following binary operations:
-* =, !=, >, <, >=, <=
-* &, |
+Oil supports following binary operations:
+* ==, !=, >, <, >=, <=
+* &&, ||, &, |, <<, >>
 * +, -, *, /, %
 
 Following unary operations:
@@ -135,6 +135,13 @@ To access array element you can use `[_]` (index) operator:
 ```
 a := [1, 2, 3]
 b := a[1] # 2
+```
+
+You can also get a slice from array using index operator with a range:
+
+```
+a := [1, 2, 3]
+b := a[0..1] # 1, 2
 ```
 
 ### Dictionaries
@@ -322,7 +329,7 @@ flavour := |item| match item {
 Wilcard pattern is `_` you already seen in match arms before
 
 ### Control Flow: Loops
-Hawk has no loops, so you can use recursion!
+Oil has no loops, so you can use recursion!
 
 ```
 factorial := |n| match n {
@@ -332,7 +339,7 @@ factorial := |n| match n {
 ```
 
 ### Modularity
-Every Hawk file is a module. You can use one module from other one using `use` function and `:` operator:
+Every Oil file is a module. You can use one module from other one using `use` function and `:` operator:
 
 ```
 io := use("io")
@@ -341,7 +348,7 @@ io:println("Hello, world!")
 ```
 
 ### Pipelines
-Hawk allows to rewrite calls chain in a more accurate and readable form using `|>` (pipeline) operator:
+Oil allows to rewrite calls chain in a more accurate and readable form using `|>` (pipeline) operator:
 
 Without pipeline:
 ```
