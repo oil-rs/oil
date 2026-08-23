@@ -109,16 +109,8 @@ Following unary operations:
 * !, -
 
 Following postfix operations:
-* : for module field access
+* . for module field or dictionary element access
 * [_] for index or key access
-
-### Echoes
-To print some debug information you can use `echo` keyword:
-
-```
-echo 1 + 2 # 3
-echo 2 * 2 # 4
-```
 
 ### Arrays
 Array represents a sequence of values:
@@ -233,6 +225,14 @@ x := |x| {
 y := x(5)
 echo y() # 10
 echo y() # 20
+```
+
+### Echoes
+To print some debug information you can use `echo` keyword:
+
+```
+echo 1 + 2 # 3
+echo 2 * 2 # 4
 ```
 
 ### Control Flow: If
