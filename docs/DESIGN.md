@@ -89,7 +89,7 @@ Nil represents a nothing value. Means here is no specified value:
 
 ```
 a := nil
-io:println(a = nil) # true
+io:println(a == nil) # true
 ```
 
 ### Variables
