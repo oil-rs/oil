@@ -1,14 +1,14 @@
-### ⛽ Oil
-Oil is a friendly, expression-based, immutable functional programming language for building scalable software.
+### 🦅 Hawk
+Hawk is a friendly, expression-based, immutable functional programming language for math at scale
 
-### 🫧 Philosophy
+### Philosophy
 * Simplicity
 * Immutability
 * No hidden behavior
 
 ### Example
 
-```oil
+```hawk
 io := use("io")
 
 fib := |n| {
