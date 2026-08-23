@@ -1,5 +1,5 @@
-### ⛽ Oil
-Oil is a friendly, expression-based, immutable functional programming language for building scalable software.
+### 🦅 Hawk
+Hawk is a friendly, expression-based, immutable functional programming language for math at scale
 
 ### Philosophy
 * Simplicity
@@ -100,7 +100,7 @@ a := "world" # not a mutation, variable shadowing.
 ```
 
 ### Operators
-Oil supports following binary operations:
+Hawk supports following binary operations:
 * ==, !=, >, <, >=, <=
 * &&, ||, &, |, <<, >>
 * +, -, *, /, %
@@ -266,7 +266,7 @@ Pattern matching supports following patterns:
 * Range patterns
 * Compare patterns
 * Binding patterns
-* Wilcard pattern
+* Wildcard pattern
 
 Here is some examples:
 
@@ -329,7 +329,7 @@ flavour := |item| match item {
 Wilcard pattern is `_` you already seen in match arms before
 
 ### Control Flow: Loops
-Oil has no loops, so you can use recursion!
+Hawk has no loops, so you can use recursion!
 
 ```
 factorial := |n| match n {
@@ -339,7 +339,7 @@ factorial := |n| match n {
 ```
 
 ### Modularity
-Every Oil file is a module. You can use one module from other one using `use` function and `:` operator:
+Every Hawk file is a module. You can use one module from other one using `use` function and `:` operator:
 
 ```
 io := use("io")
@@ -348,7 +348,7 @@ io:println("Hello, world!")
 ```
 
 ### Pipelines
-Oil allows to rewrite calls chain in a more accurate and readable form using `|>` (pipeline) operator:
+Hawk allows to rewrite calls chain in a more accurate and readable form using `|>` (pipeline) operator:
 
 Without pipeline:
 ```
