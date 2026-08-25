@@ -24,7 +24,7 @@ Hawk is a friendly, expression-based, immutable functional programming language 
 ### Reserved words
 The best way to get a quick feel of a language's style is to look what keywords it uses:
 ```
-if else true false nil memoize echo match
+if else true false nil memoize echo match use
 ```
 
 ### Comments
@@ -346,10 +346,10 @@ factorial := |n| match n {
 ```
 
 ### Modularity
-Every Hawk file is a module. You can use one module from other one using `use` function and `.` operator:
+Every Hawk file is a module. You can use one module from other one using `use` keyword and `.` operator:
 
 ```
-io := use("io")
+io := use "io"
 
 io.println("Hello, world!")
 ```
@@ -359,7 +359,7 @@ Hawk allows to rewrite calls chain in a more accurate and readable form using `|
 
 Without pipeline:
 ```
-io := use("io")
+io := use "io"
 double := |n| n * 2
 square := |n| n * n
 
@@ -368,7 +368,7 @@ io.println(square(double(10)))
 
 With pipeline:
 ```
-io := use("io")
+io := use "io"
 square := |n| n * n
 
 double(10) |> square(_)  |> io:println(_)
@@ -381,7 +381,7 @@ Pure functions can be made memoized via `memoize` keyword. Ensure the function i
 to avoid hidden bugs. Here is an example for memoization:
 
 ```
-io := use("io")
+io := use "io"
 
 fib := memoize |n| {
     if n <= 1 {
