@@ -9,7 +9,7 @@ Hawk is a friendly, expression-based, immutable functional programming language 
 ### Example
 
 ```hawk
-io := use("io")
+io := use "io"
 
 fib := |n| {
   if n <= 1 {
