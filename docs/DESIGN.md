@@ -119,8 +119,8 @@ Array represents a sequence of values:
 a := [1, "hello", true, [1, 2, 3]]
 ```
 
-To create a copy of a array, or a new array from one or more others, use spread operator to inject
-values from some array into specified one
+To create a copy of a array, or a new array from one or more others, you should use spread operator. Spread operator is used to inject
+values from specified array into a new one
 
 ```
 a := [1, 2, 3]
