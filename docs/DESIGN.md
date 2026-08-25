@@ -154,7 +154,7 @@ a := {
 }
 ```
 
-As for arrays, you can use spread operator to inject value from some dict into specified one
+As for arrays, you can use spread operator to inject value from specified dict into a new one
 
 ```
 a := {
@@ -193,8 +193,8 @@ To create an array of numbers in some range, you can use range expression:
 a := 0..5
 b := 0..=5
 
-io.println(a) # [0, 1, 2, 3, 4]
-io.println(a) # [0, 1, 2, 3, 4, 5]
+echo a # [0, 1, 2, 3, 4]
+echo b # [0, 1, 2, 3, 4, 5]
 ```
 
 ### Functions
